@@ -60,7 +60,7 @@ client.on("ready", async () => {
 
 client.on("interactionCreate", handleInteraction);
 
-scheduleJob("*/10 * * * * *", async () => {
+scheduleJob("*/15 * * * * *", async () => {
   const req = await fetch(
     "https://api.binance.com/api/v3/ticker/24hr?symbol=SOLUSDT",
     {
@@ -80,9 +80,9 @@ scheduleJob("*/10 * * * * *", async () => {
     activities: [
       {
         type: "WATCHING",
-        name: `+${parseFloat(res.priceChange).toFixed(2)} (${parseFloat(
-          res.priceChangePercent
-        ).toFixed(2)}%)`,
+        name: `${res.priceChangePercent.includes("-") ? "" : "+"}${parseFloat(
+          res.priceChange
+        ).toFixed(2)} (${parseFloat(res.priceChangePercent).toFixed(2)}%)`,
       },
     ],
   });
